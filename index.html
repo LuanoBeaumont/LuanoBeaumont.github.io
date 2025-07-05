@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+    <!-- Basic meta tags for character set and responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Woodrow Fajardo - Research Portfolio</title>
+    
+    <!-- Tailwind CSS from CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for a clean, modern typeface -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Internal CSS for custom styles and animations -->
     <style>
+        /* Sets the default font for the entire page to 'Inter' for a consistent look. */
         body {
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden; /* Prevents horizontal scroll from full-width elements */
+            overflow-x: hidden; /* Prevents horizontal scroll from full-width elements. */
         }
-        /* Simple animation for section fade-in */
+        
+        /* A simple fade-in animation for sections as they appear on screen. */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
@@ -23,78 +32,94 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* NYC Subway Colors for item circles */
+        
+        /* Custom color classes inspired by NYC subway lines for project tags. */
         .subway-red { background-color: #EE352E; }
         .subway-green { background-color: #00933C; }
         .subway-blue { background-color: #0039A6; }
-        .subway-yellow { background-color: #FCCC0A; color: #000; }
+        .subway-yellow { background-color: #FCCC0A; color: #000; } /* Yellow needs black text for readability. */
 
-        /* Styles for pagination */
+        /* Styles for disabled pagination buttons to provide visual feedback. */
         .pagination-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
-        /* New Filter Bar Styles */
+        /* --- New Filter Bar Styles --- */
+        /* Base styling for each button in the filter bar. */
         #filter-container .filter-btn {
-            padding: 1rem 1.25rem; /* py-4 px-5 */
+            padding: 1rem 1.25rem;
             position: relative;
             cursor: pointer;
             border: none;
             background-color: transparent;
             color: #4b5563; /* text-gray-600 */
             transition: color 0.2s, background-color 0.2s;
-            border-right: 1px solid #e5e7eb; /* border-gray-200 */
+            border-right: 1px solid #e5e7eb; /* Adds a separator line. */
         }
 
+        /* Removes the separator line from the last button. */
         #filter-container .filter-btn:last-child {
             border-right: none;
         }
 
+        /* Hover effect for filter buttons. */
         #filter-container .filter-btn:hover {
             background-color: #f9fafb; /* bg-gray-50 */
             color: #000;
         }
 
+        /* Styles for the currently active filter button. */
         #filter-container .filter-btn.active {
             background-color: #f3f4f6; /* bg-gray-100 */
             color: #111827; /* text-gray-900 */
             font-weight: 500;
         }
 
+        /* Creates the blue underline for the active filter button using a pseudo-element. */
         #filter-container .filter-btn.active::after {
             content: '';
             position: absolute;
-            bottom: -1px; /* Sits on top of the container's bottom border */
+            bottom: -1px; /* Sits on top of the container's bottom border. */
             left: 0;
             width: 100%;
             height: 3px;
-            background-color: #0039A6; /* A nice blue color */
+            background-color: #0039A6; /* A nice blue color. */
         }
     </style>
 </head>
 <body class="bg-white text-black">
 
-    <!-- Header and Navigation -->
+    <!-- ======================================================= -->
+    <!-- HEADER & NAVIGATION                                     -->
+    <!-- A sticky header that stays at the top of the page.     -->
+    <!-- ======================================================= -->
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Site Title/Logo -->
             <a href="#" class="text-xl font-bold tracking-tight">Woodrow Fajardo</a>
+            
+            <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#work" class="text-gray-600 hover:text-black transition-colors">Work</a>
                 <a href="#about" class="text-gray-600 hover:text-black transition-colors">About</a>
                 <a href="#contact" class="text-gray-600 hover:text-black transition-colors">Contact</a>
             </nav>
+            
+            <!-- Resume Download Button (Desktop) -->
             <a href="./woodrow-fajardo-resume.pdf" download="woodrow-fajardo-resume.pdf" class="hidden md:inline-block bg-black text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">
                 Download Resume
             </a>
-            <!-- Mobile Menu Button -->
+            
+            <!-- Mobile Menu Button (Hamburger Icon) -->
             <button id="mobile-menu-button" class="md:hidden p-2 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
         </div>
-        <!-- Mobile Menu -->
+        
+        <!-- Mobile Menu (Hidden by default) -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
             <a href="#work" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Work</a>
             <a href="#about" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">About</a>
@@ -107,10 +132,15 @@
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- ======================================================= -->
+    <!-- MAIN CONTENT AREA                                       -->
+    <!-- ======================================================= -->
     <main>
 
-        <!-- Hero Section -->
+        <!-- ======================================================= -->
+        <!-- HERO SECTION                                          -->
+        <!-- The main introduction area at the top of the page.    -->
+        <!-- ======================================================= -->
         <section id="hero" class="container mx-auto px-6 text-center py-20 md:py-32">
             <div class="max-w-4xl mx-auto">
                 <img src="https://placehold.co/128x128/000000/FFFFFF?text=WF" alt="Profile Photo of Woodrow Fajardo" class="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto mb-6 ring-4 ring-gray-200">
@@ -125,7 +155,10 @@
             </div>
         </section>
 
-        <!-- Work Section -->
+        <!-- ======================================================= -->
+        <!-- WORK SECTION                                          -->
+        <!-- This section contains the dynamic portfolio grid.     -->
+        <!-- ======================================================= -->
         <section id="work" class="py-16 md:py-24 border-t border-gray-100 fade-in-section">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-8">
@@ -134,29 +167,33 @@
                 </div>
             </div>
 
-            <!-- Full-width Filter and Search Bar -->
+            <!-- Full-width container for the filter bar -->
             <div class="border-b border-gray-200">
-                <div class="container mx-auto px-6 flex flex-col md:flex-row justify-center items-center gap-x-8 gap-y-4 mb-12">
+                <!-- Centered container for the filter controls -->
+                <div class="container mx-auto px-6 flex flex-wrap justify-center items-center gap-x-8 gap-y-4 py-6">
+                    <!-- Filter buttons container -->
                     <div id="filter-container" class="flex flex-wrap justify-center">
                         <button data-filter="all" class="filter-btn active">All</button>
                         <button data-filter="Project" class="filter-btn">Projects</button>
                         <button data-filter="Study" class="filter-btn">Studies</button>
                         <button data-filter="Artwork" class="filter-btn">Artworks</button>
                     </div>
-                    <div class="relative flex items-center py-2">
+                    <!-- Search bar container -->
+                    <div class="relative flex items-center">
                         <input type="text" id="search-input" placeholder="Search..." class="pl-10 pr-4 py-2 w-64 border rounded-full focus:ring-2 focus:ring-black focus:outline-none">
                         <svg class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     </div>
                 </div>
             </div>
             
-            <div class="container mx-auto px-6">
-                <!-- Grid for portfolio items -->
+            <!-- Container for the portfolio items and pagination -->
+            <div class="container mx-auto px-6 mt-12">
+                <!-- The grid where portfolio items will be dynamically inserted by JavaScript. -->
                 <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[500px]">
-                    <!-- Portfolio items will be injected here by JavaScript -->
+                    <!-- Portfolio items will be injected here. -->
                 </div>
 
-                <!-- Pagination Controls -->
+                <!-- Pagination controls -->
                 <div id="pagination-container" class="flex justify-center items-center gap-4 mt-12">
                     <button id="prev-page" class="pagination-btn bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">&larr; Previous</button>
                     <span id="page-indicator" class="text-gray-600"></span>
@@ -165,7 +202,9 @@
             </div>
         </section>
 
-        <!-- About Me Section -->
+        <!-- ======================================================= -->
+        <!-- ABOUT ME SECTION                                      -->
+        <!-- ======================================================= -->
         <section id="about" class="container mx-auto px-6 py-16 md:py-24 border-t border-gray-100 fade-in-section">
             <div class="max-w-3xl mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">About Me</h2>
@@ -176,13 +215,16 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- ======================================================= -->
+        <!-- CONTACT SECTION                                       -->
+        <!-- ======================================================= -->
         <section id="contact" class="bg-gray-50 rounded-t-xl fade-in-section">
             <div class="container mx-auto px-6 py-16 md:py-24">
                 <div class="max-w-2xl mx-auto text-center">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
                     <p class="text-gray-600 mb-8">I'm always open to discussing new research, collaborations, or opportunities. Feel free to reach out.</p>
                     <div class="flex justify-center gap-4 mb-8">
+                        <!-- Social media icons -->
                         <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
                         <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
                         <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
@@ -194,14 +236,24 @@
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- ======================================================= -->
+    <!-- FOOTER                                                  -->
+    <!-- ======================================================= -->
     <footer class="bg-gray-50 text-center py-6">
         <p class="text-gray-500 text-sm">&copy; 2024 Woodrow Fajardo. All Rights Reserved.</p>
     </footer>
 
+    <!-- ======================================================= -->
+    <!-- JAVASCRIPT                                              -->
+    <!-- Handles all dynamic functionality on the page.          -->
+    <!-- ======================================================= -->
     <script>
+    // Wait for the HTML document to be fully loaded before running the script.
     document.addEventListener('DOMContentLoaded', function () {
+        
         // --- DATA ---
+        // This array of objects holds all the data for the portfolio items.
+        // To add a new item, just add a new object to this array.
         const portfolioItems = [
             { id: 1, title: 'Predictive Modeling of Urban Growth', date: 'Oct 2023', category: 'Project', color: 'subway-red', description: 'Developed a machine learning model to forecast urban expansion patterns using satellite imagery and demographic data.' },
             { id: 2, title: 'Sentiment Analysis on Social Media', date: 'Sep 2023', category: 'Study', color: 'subway-blue', description: 'Analyzed public sentiment towards climate change policies by processing over 2 million tweets using NLP techniques.' },
@@ -215,12 +267,14 @@
         ];
 
         // --- STATE ---
+        // These variables track the current state of the portfolio.
         let currentPage = 1;
-        const itemsPerPage = 6;
-        let currentFilter = 'all';
-        let searchQuery = '';
+        const itemsPerPage = 6; // How many items to show on each page.
+        let currentFilter = 'all'; // The currently selected category filter.
+        let searchQuery = ''; // The current text in the search bar.
 
         // --- DOM ELEMENTS ---
+        // Storing references to HTML elements we need to interact with.
         const grid = document.getElementById('portfolio-grid');
         const prevButton = document.getElementById('prev-page');
         const nextButton = document.getElementById('next-page');
@@ -229,93 +283,134 @@
         const searchInput = document.getElementById('search-input');
 
         // --- FUNCTIONS ---
+        
+        /**
+         * Renders the portfolio items based on the current state (filter, search, page).
+         * This is the core function that updates the view.
+         */
         function renderPortfolio() {
+            // Step 1: Filter by category.
             let filteredItems = portfolioItems;
             if (currentFilter !== 'all') {
                 filteredItems = portfolioItems.filter(item => item.category === currentFilter);
             }
+
+            // Step 2: Filter by search query.
             if (searchQuery) {
                 filteredItems = filteredItems.filter(item => 
                     item.title.toLowerCase().includes(searchQuery) || 
                     item.description.toLowerCase().includes(searchQuery)
                 );
             }
+
+            // Step 3: Calculate pagination.
             const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
             const startIndex = (currentPage - 1) * itemsPerPage;
             const itemsToRender = filteredItems.slice(startIndex, startIndex + itemsPerPage);
-            grid.innerHTML = '';
+
+            // Step 4: Render the items to the DOM.
+            grid.innerHTML = ''; // Clear the grid before adding new items.
             if (itemsToRender.length === 0) {
+                // Show a message if no items match the filters.
                 grid.innerHTML = `<p class="text-gray-500 col-span-full text-center">No items found.</p>`;
             } else {
+                // Create and append the HTML for each item.
                 itemsToRender.forEach(item => {
                     const itemHtml = `
-                        <div class="bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
+                        <a href="#" class="block bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
                             <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="${item.title}" class="w-full h-48 object-cover">
                             <div class="p-6 relative">
-                                <div class="absolute -top-5 left-6 w-10 h-10 ${item.color} rounded-full flex items-center justify-center text-white font-bold text-lg ring-4 ring-white">${item.id}</div>
+                                <!-- Icon Container: This is where the hover animation happens. -->
+                                <div class="icon-container absolute -top-5 left-6 w-10 h-10 ${item.color} rounded-full flex items-center justify-center text-white font-bold text-lg ring-4 ring-white transition-all duration-300 ease-in-out group-hover:w-24 group-hover:rounded-full">
+                                    <!-- The number, which fades out on hover. -->
+                                    <span class="number-text transition-opacity duration-300 group-hover:opacity-0">${item.id}</span>
+                                    <!-- The "NOTES" text, which fades in on hover. -->
+                                    <span class="notes-text absolute opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-sm font-semibold tracking-wider">NOTES</span>
+                                </div>
                                 <p class="text-sm text-gray-500 mt-4">${item.date}</p>
                                 <h3 class="text-xl font-semibold mt-1 mb-2">${item.title}</h3>
                                 <p class="text-gray-600 text-sm">${item.description}</p>
                             </div>
-                        </div>
+                        </a>
                     `;
                     grid.innerHTML += itemHtml;
                 });
             }
+            
+            // Step 5: Update pagination controls.
             pageIndicator.textContent = `Page ${currentPage} of ${totalPages > 0 ? totalPages : 1}`;
             prevButton.disabled = currentPage === 1;
             nextButton.disabled = currentPage === totalPages || totalPages === 0;
         }
 
         // --- EVENT LISTENERS ---
+        
+        // Handles clicks on the "Previous" pagination button.
         prevButton.addEventListener('click', () => {
             if (currentPage > 1) {
                 currentPage--;
-                renderPortfolio();
+                renderPortfolio(); // Re-render the portfolio for the new page.
             }
         });
+
+        // Handles clicks on the "Next" pagination button.
         nextButton.addEventListener('click', () => {
+            // We need to recalculate total pages here in case filters have changed the number of items.
             const totalItems = portfolioItems.filter(item => (currentFilter === 'all' || item.category === currentFilter) && (item.title.toLowerCase().includes(searchQuery) || item.description.toLowerCase().includes(searchQuery))).length;
             const totalPages = Math.ceil(totalItems / itemsPerPage);
             if (currentPage < totalPages) {
                 currentPage++;
-                renderPortfolio();
+                renderPortfolio(); // Re-render the portfolio for the new page.
             }
         });
+
+        // Handles clicks on the filter buttons.
         filterContainer.addEventListener('click', (e) => {
             const targetButton = e.target.closest('.filter-btn');
             if (targetButton) {
+                // Update the active style.
                 filterContainer.querySelector('.active').classList.remove('active');
                 targetButton.classList.add('active');
+                
+                // Update state and re-render.
                 currentFilter = targetButton.dataset.filter;
-                currentPage = 1;
+                currentPage = 1; // Reset to the first page whenever the filter changes.
                 renderPortfolio();
             }
         });
+
+        // Handles user input in the search bar.
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value.toLowerCase().trim();
-            currentPage = 1;
+            currentPage = 1; // Reset to the first page for a new search.
             renderPortfolio();
         });
 
         // --- INITIALIZATION ---
+        
+        // Initial render of the portfolio when the page loads.
         renderPortfolio();
+        
+        // Logic for the mobile menu toggle.
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
+        // Also close the menu when a link inside it is clicked.
         mobileMenu.addEventListener('click', (event) => {
             if (event.target.tagName === 'A') {
                 mobileMenu.classList.add('hidden');
             }
         });
+
+        // Sets up the Intersection Observer to trigger the fade-in animation for sections.
         const sections = document.querySelectorAll('.fade-in-section');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
+                    observer.unobserve(entry.target); // Stop observing after it's visible.
                 }
             });
         }, { rootMargin: '0px', threshold: 0.1 });
