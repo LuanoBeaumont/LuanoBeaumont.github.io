@@ -130,7 +130,10 @@
                 </p>
                 <div class="flex flex-wrap justify-center items-center gap-4">
                     <a href="#contact" class="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-transform transform hover:scale-105">Send me a message</a>
-                    <a href="https://www.buymeacoffee.com/woodrow.fajardo"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=woodrow.fajardo&button_colour=FFDD00&font_colour=000000&font_family=Inter&outline_colour=000000&coffee_colour=ffffff" /></a>
+                    <a href="https://www.buymeacoffee.com/woodrow.fajardo" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-x-2 px-5 py-2.5 text-sm font-medium text-black bg-white border border-black rounded-lg hover:bg-gray-100 transition-colors">
+                        Buy me a coffee
+                        <span aria-hidden="true">☕</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -243,13 +246,8 @@
             }, observerOptions);
         }
         
-        // MODIFIED: Created a new function to handle rendering and then scrolling.
-        /**
-         * Renders the portfolio and then smoothly scrolls to the top of the #work section on mobile.
-         */
         function handlePortfolioUpdate() {
             renderPortfolio();
-            // Only scroll on mobile devices
             if (window.matchMedia('(max-width: 767px)').matches) {
                 document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
             }
@@ -315,11 +313,10 @@
             }
         }
 
-        // --- EVENT LISTENERS (MODIFIED) ---
         prevButton.addEventListener('click', () => {
             if (currentPage > 1) { 
                 currentPage--; 
-                handlePortfolioUpdate(); // Use the new function
+                handlePortfolioUpdate();
             }
         });
         nextButton.addEventListener('click', () => {
@@ -327,7 +324,7 @@
             const totalPages = Math.ceil(totalItems / itemsPerPage);
             if (currentPage < totalPages) { 
                 currentPage++; 
-                handlePortfolioUpdate(); // Use the new function
+                handlePortfolioUpdate();
             }
         });
         filterContainer.addEventListener('click', (e) => {
@@ -337,16 +334,15 @@
                 targetButton.classList.add('active');
                 currentFilter = targetButton.dataset.filter;
                 currentPage = 1;
-                handlePortfolioUpdate(); // Use the new function
+                handlePortfolioUpdate();
             }
         });
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value.toLowerCase().trim();
             currentPage = 1;
-            handlePortfolioUpdate(); // Use the new function
+            handlePortfolioUpdate();
         });
 
-        // --- INITIALIZATION ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
