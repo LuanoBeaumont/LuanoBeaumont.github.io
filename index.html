@@ -253,17 +253,17 @@
         
         // --- DATA ---
         // This array of objects holds all the data for the portfolio items.
-        // To add a new item, just add a new object to this array.
+        // The 'link' and 'linkType' properties have been added to make each item clickable.
         const portfolioItems = [
-            { id: 1, title: 'Predictive Modeling of Urban Growth', date: 'Oct 2023', category: 'Project', color: 'subway-red', description: 'Developed a machine learning model to forecast urban expansion patterns using satellite imagery and demographic data.' },
-            { id: 2, title: 'Sentiment Analysis on Social Media', date: 'Sep 2023', category: 'Study', color: 'subway-blue', description: 'Analyzed public sentiment towards climate change policies by processing over 2 million tweets using NLP techniques.' },
-            { id: 3, title: 'Behavioral Economics in App Design', date: 'Jun 2023', category: 'Study', color: 'subway-blue', description: 'A/B tested UI/UX changes in a mobile application to measure the impact of choice architecture on user engagement.' },
-            { id: 4, title: 'Network Analysis of Collaboration', date: 'Mar 2023', category: 'Project', color: 'subway-red', description: 'Mapped collaboration networks among researchers to identify key influencers and knowledge diffusion pathways.' },
-            { id: 5, title: 'Abstract Digital Painting 1', date: 'Feb 2023', category: 'Artwork', color: 'subway-green', description: 'An exploration of color and form using generative algorithms.' },
-            { id: 6, title: 'Ethical Frameworks for AI', date: 'Dec 2022', category: 'Study', color: 'subway-blue', description: 'A qualitative study proposing a new ethical framework for the deployment of autonomous decision-making systems.' },
-            { id: 7, title: 'Data Visualization for Public Health', date: 'Sep 2022', category: 'Project', color: 'subway-red', description: 'Designed interactive dashboards to communicate complex epidemiological data to policymakers and the general public.' },
-            { id: 8, title: 'Generative Landscape', date: 'Aug 2022', category: 'Artwork', color: 'subway-green', description: 'A digital artwork created with p5.js, representing a fictional landscape.' },
-            { id: 9, title: 'A Study on Remote Work Productivity', date: 'Jul 2022', category: 'Study', color: 'subway-blue', description: 'A survey and data analysis on the effects of remote work on employee productivity and well-being.' },
+            { id: 1, title: 'Predictive Modeling of Urban Growth', date: 'Oct 2023', category: 'Project', color: 'subway-red', description: 'Developed a machine learning model to forecast urban expansion patterns.', link: './urban-growth-study.pdf', linkType: 'pdf' },
+            { id: 2, title: 'Sentiment Analysis on Social Media', date: 'Sep 2023', category: 'Study', color: 'subway-blue', description: 'Analyzed public sentiment towards climate change policies by processing over 2 million tweets.', link: 'https://example.com/sentiment-analysis-study', linkType: 'url' },
+            { id: 3, title: 'Behavioral Economics in App Design', date: 'Jun 2023', category: 'Study', color: 'subway-blue', description: 'A/B tested UI/UX changes in a mobile application to measure the impact of choice architecture.', link: 'https://example.com/behavioral-econ-app', linkType: 'url' },
+            { id: 4, title: 'Network Analysis of Collaboration', date: 'Mar 2023', category: 'Project', color: 'subway-red', description: 'Mapped collaboration networks among researchers to identify key influencers.', link: './network-analysis.pdf', linkType: 'pdf' },
+            { id: 5, title: 'Abstract Digital Painting 1', date: 'Feb 2023', category: 'Artwork', color: 'subway-green', description: 'An exploration of color and form using generative algorithms.', link: 'https://example.com/artwork-1', linkType: 'url' },
+            { id: 6, title: 'Ethical Frameworks for AI', date: 'Dec 2022', category: 'Study', color: 'subway-blue', description: 'A qualitative study proposing a new ethical framework for autonomous systems.', link: './ethical-ai-framework.pdf', linkType: 'pdf' },
+            { id: 7, title: 'Data Visualization for Public Health', date: 'Sep 2022', category: 'Project', color: 'subway-red', description: 'Designed interactive dashboards to communicate complex epidemiological data.', link: 'https://example.com/public-health-dashboard', linkType: 'url' },
+            { id: 8, title: 'Generative Landscape', date: 'Aug 2022', category: 'Artwork', color: 'subway-green', description: 'A digital artwork created with p5.js, representing a fictional landscape.', link: './generative-landscape.pdf', linkType: 'pdf' },
+            { id: 9, title: 'A Study on Remote Work Productivity', date: 'Jul 2022', category: 'Study', color: 'subway-blue', description: 'A survey and data analysis on the effects of remote work on employee well-being.', link: 'https://example.com/remote-work-study', linkType: 'url' },
         ];
 
         // --- STATE ---
@@ -316,16 +316,27 @@
             } else {
                 // Create and append the HTML for each item.
                 itemsToRender.forEach(item => {
+                    // --- Dynamic Link and Title Generation ---
+                    let linkAttributes = `href="${item.link}"`;
+                    let hoverTitle = '';
+                    if (item.linkType === 'pdf') {
+                        linkAttributes += ` download`;
+                        hoverTitle = 'Download PDF';
+                    } else {
+                        linkAttributes += ` target="_blank" rel="noopener noreferrer"`;
+                        hoverTitle = 'Visit Website';
+                    }
+
                     const itemHtml = `
-                        <a href="#" class="block bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
+                        <a ${linkAttributes} title="${hoverTitle}" class="block bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
                             <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="${item.title}" class="w-full h-48 object-cover">
                             <div class="p-6 relative">
-                                <!-- Icon Container: This is where the hover animation happens. -->
-                                <div class="icon-container absolute -top-5 left-6 w-10 h-10 ${item.color} rounded-full flex items-center justify-center text-white font-bold text-lg ring-4 ring-white transition-all duration-300 ease-in-out group-hover:w-24 group-hover:rounded-full">
-                                    <!-- The number, which fades out on hover. -->
-                                    <span class="number-text transition-opacity duration-300 group-hover:opacity-0">${item.id}</span>
-                                    <!-- The "NOTES" text, which fades in on hover. -->
-                                    <span class="notes-text absolute opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-sm font-semibold tracking-wider">NOTES</span>
+                                <!-- Icon Container: The size is reduced (w-8 h-8) and hover width is adjusted. -->
+                                <div class="icon-container absolute -top-4 left-6 w-8 h-8 ${item.color} rounded-full flex items-center justify-center text-white font-bold text-base ring-4 ring-white transition-all duration-300 ease-in-out group-hover:w-24 group-hover:rounded-full">
+                                    <!-- The category's first letter, which fades out on hover. -->
+                                    <span class="number-text transition-opacity duration-300 group-hover:opacity-0">${item.category.charAt(0)}</span>
+                                    <!-- The full category name, which fades in on hover. -->
+                                    <span class="notes-text absolute opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-xs font-semibold tracking-wider">${item.category}</span>
                                 </div>
                                 <p class="text-sm text-gray-500 mt-4">${item.date}</p>
                                 <h3 class="text-xl font-semibold mt-1 mb-2">${item.title}</h3>
