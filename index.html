@@ -74,10 +74,8 @@
             background-color: #0039A6; /* A nice blue color. */
         }
 
-        /* --- NEW: Scroll-triggered Animation for Mobile --- */
-        /* This applies the hover effect via a class instead of actual hover, on mobile only. */
+        /* --- Scroll-triggered Animation for Mobile --- */
         @media (max-width: 767px) {
-            /* Selects the elements inside an item that has the 'in-view-active' class */
             .in-view-active .icon-container {
                 width: 6rem; /* 96px, equivalent to w-24 */
                 border-radius: 9999px; /* equivalent to rounded-full */
@@ -96,24 +94,20 @@
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold tracking-tight">Woodrow Fajardo</a>
-            
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#work" class="text-gray-600 hover:text-black transition-colors">Work</a>
                 <a href="#about" class="text-gray-600 hover:text-black transition-colors">About</a>
                 <a href="#contact" class="text-gray-600 hover:text-black transition-colors">Contact</a>
             </nav>
-            
             <a href="./woodrow-fajardo-resume.pdf" download="woodrow-fajardo-resume.pdf" class="hidden md:inline-block bg-black text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">
                 Download Resume
             </a>
-            
             <button id="mobile-menu-button" class="md:hidden p-2 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
         </div>
-        
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
             <a href="#work" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">Work</a>
             <a href="#about" class="block py-3 px-6 text-gray-600 hover:bg-gray-50">About</a>
@@ -134,7 +128,7 @@
                 <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
                     A passionate researcher exploring the intersections of technology, human behavior, and data. I build models and craft studies to understand our complex world.
                 </p>
-                <div class="flex justify-center items-center gap-4">
+                <div class="flex flex-wrap justify-center items-center gap-4">
                     <a href="#contact" class="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-transform transform hover:scale-105">Send me a message</a>
                     <a href="https://www.buymeacoffee.com/woodrow.fajardo"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=woodrow.fajardo&button_colour=FFDD00&font_colour=000000&font_family=Inter&outline_colour=000000&coffee_colour=ffffff" /></a>
                 </div>
@@ -167,7 +161,6 @@
             <div class="container mx-auto px-6 mt-12">
                 <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[500px]">
                     </div>
-
                 <div id="pagination-container" class="flex justify-center items-center gap-4 mt-12">
                     <button id="prev-page" class="pagination-btn bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">&larr; Previous</button>
                     <span id="page-indicator" class="text-gray-600"></span>
@@ -204,32 +197,29 @@
     </main>
 
     <footer class="bg-gray-50 text-center py-6">
-        <p class="text-gray-500 text-sm">&copy; 2024 Woodrow Fajardo. All Rights Reserved.</p>
+        <p class="text-gray-500 text-sm">&copy; 2025 Woodrow Fajardo. All Rights Reserved.</p>
     </footer>
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         
-        // --- DATA ---
         const portfolioItems = [
-            { id: 1, title: 'Predictive Modeling of Urban Growth', date: 'Oct 2023', category: 'Project', color: 'subway-red', description: 'Developed a machine learning model to forecast urban expansion patterns.', link: './urban-growth-study.pdf', linkType: 'pdf' },
-            { id: 2, title: 'Sentiment Analysis on Social Media', date: 'Sep 2023', category: 'Study', color: 'subway-blue', description: 'Analyzed public sentiment towards climate change policies by processing over 2 million tweets.', link: 'https://example.com/sentiment-analysis-study', linkType: 'url' },
-            { id: 3, title: 'Behavioral Economics in App Design', date: 'Jun 2023', category: 'Study', color: 'subway-blue', description: 'A/B tested UI/UX changes in a mobile application to measure the impact of choice architecture.', link: 'https://example.com/behavioral-econ-app', linkType: 'url' },
-            { id: 4, title: 'Network Analysis of Collaboration', date: 'Mar 2023', category: 'Project', color: 'subway-red', description: 'Mapped collaboration networks among researchers to identify key influencers.', link: './network-analysis.pdf', linkType: 'pdf' },
-            { id: 5, title: 'Abstract Digital Painting 1', date: 'Feb 2023', category: 'Artwork', color: 'subway-green', description: 'An exploration of color and form using generative algorithms.', link: 'https://example.com/artwork-1', linkType: 'url' },
-            { id: 6, title: 'Ethical Frameworks for AI', date: 'Dec 2022', category: 'Study', color: 'subway-blue', description: 'A qualitative study proposing a new ethical framework for autonomous systems.', link: './ethical-ai-framework.pdf', linkType: 'pdf' },
-            { id: 7, title: 'Data Visualization for Public Health', date: 'Sep 2022', category: 'Project', color: 'subway-red', description: 'Designed interactive dashboards to communicate complex epidemiological data.', link: 'https://example.com/public-health-dashboard', linkType: 'url' },
-            { id: 8, title: 'Generative Landscape', date: 'Aug 2022', category: 'Artwork', color: 'subway-green', description: 'A digital artwork created with p5.js, representing a fictional landscape.', link: './generative-landscape.pdf', linkType: 'pdf' },
-            { id: 9, title: 'A Study on Remote Work Productivity', date: 'Jul 2022', category: 'Study', color: 'subway-blue', description: 'A survey and data analysis on the effects of remote work on employee well-being.', link: 'https://example.com/remote-work-study', linkType: 'url' },
+            { id: 1, title: 'Predictive Modeling of Urban Growth', date: 'Oct 2024', category: 'Project', color: 'subway-red', description: 'Developed a machine learning model to forecast urban expansion patterns.', link: './urban-growth-study.pdf', linkType: 'pdf' },
+            { id: 2, title: 'Sentiment Analysis on Social Media', date: 'Sep 2024', category: 'Study', color: 'subway-blue', description: 'Analyzed public sentiment towards climate change policies by processing over 2 million tweets.', link: 'https://example.com/sentiment-analysis-study', linkType: 'url' },
+            { id: 3, title: 'Behavioral Economics in App Design', date: 'Jun 2024', category: 'Study', color: 'subway-blue', description: 'A/B tested UI/UX changes in a mobile application to measure the impact of choice architecture.', link: 'https://example.com/behavioral-econ-app', linkType: 'url' },
+            { id: 4, title: 'Network Analysis of Collaboration', date: 'Mar 2024', category: 'Project', color: 'subway-red', description: 'Mapped collaboration networks among researchers to identify key influencers.', link: './network-analysis.pdf', linkType: 'pdf' },
+            { id: 5, title: 'Abstract Digital Painting 1', date: 'Feb 2024', category: 'Artwork', color: 'subway-green', description: 'An exploration of color and form using generative algorithms.', link: 'https://example.com/artwork-1', linkType: 'url' },
+            { id: 6, title: 'Ethical Frameworks for AI', date: 'Dec 2023', category: 'Study', color: 'subway-blue', description: 'A qualitative study proposing a new ethical framework for autonomous systems.', link: './ethical-ai-framework.pdf', linkType: 'pdf' },
+            { id: 7, title: 'Data Visualization for Public Health', date: 'Sep 2023', category: 'Project', color: 'subway-red', description: 'Designed interactive dashboards to communicate complex epidemiological data.', link: 'https://example.com/public-health-dashboard', linkType: 'url' },
+            { id: 8, title: 'Generative Landscape', date: 'Aug 2023', category: 'Artwork', color: 'subway-green', description: 'A digital artwork created with p5.js, representing a fictional landscape.', link: './generative-landscape.pdf', linkType: 'pdf' },
+            { id: 9, title: 'A Study on Remote Work Productivity', date: 'Jul 2023', category: 'Study', color: 'subway-blue', description: 'A survey and data analysis on the effects of remote work on employee well-being.', link: 'https://example.com/remote-work-study', linkType: 'url' },
         ];
 
-        // --- STATE ---
         let currentPage = 1;
         const itemsPerPage = 6;
         let currentFilter = 'all';
         let searchQuery = '';
 
-        // --- DOM ELEMENTS ---
         const grid = document.getElementById('portfolio-grid');
         const prevButton = document.getElementById('prev-page');
         const nextButton = document.getElementById('next-page');
@@ -237,39 +227,35 @@
         const filterContainer = document.getElementById('filter-container');
         const searchInput = document.getElementById('search-input');
 
-        // NEW: Declare the observer in the top-level scope so it can be accessed everywhere.
         let itemObserver = null;
 
-        /**
-         * NEW: Sets up the IntersectionObserver to watch portfolio items.
-         * This function is called once when the page loads.
-         */
         function initializeItemObserver() {
-            // We only want this behavior on mobile devices.
-            if (!window.matchMedia('(max-width: 767px)').matches) {
-                return;
-            }
-
-            // Observer options: trigger when an item enters a horizontal band in the middle of the screen.
+            if (!window.matchMedia('(max-width: 767px)').matches) return;
             const observerOptions = {
-                root: null, // observes intersections relative to the viewport
-                rootMargin: '-40% 0px -40% 0px', // shrinks the viewport vertically, creating a "middle" zone
-                threshold: 0 // trigger as soon as any part of the item enters the zone
+                root: null,
+                rootMargin: '-40% 0px -40% 0px',
+                threshold: 0
             };
-
             itemObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    // Add the class if the item is in the zone, remove it if it's not.
                     entry.target.classList.toggle('in-view-active', entry.isIntersecting);
                 });
             }, observerOptions);
         }
-
+        
+        // MODIFIED: Created a new function to handle rendering and then scrolling.
         /**
-         * Renders the portfolio items based on the current state (filter, search, page).
+         * Renders the portfolio and then smoothly scrolls to the top of the #work section on mobile.
          */
+        function handlePortfolioUpdate() {
+            renderPortfolio();
+            // Only scroll on mobile devices
+            if (window.matchMedia('(max-width: 767px)').matches) {
+                document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         function renderPortfolio() {
-            // Step 1 & 2: Filter items by category and search query.
             let filteredItems = portfolioItems;
             if (currentFilter !== 'all') {
                 filteredItems = portfolioItems.filter(item => item.category === currentFilter);
@@ -281,13 +267,11 @@
                 );
             }
 
-            // Step 3: Calculate pagination.
             const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
             const startIndex = (currentPage - 1) * itemsPerPage;
             const itemsToRender = filteredItems.slice(startIndex, startIndex + itemsPerPage);
 
-            // Step 4: Render the items to the DOM.
-            grid.innerHTML = ''; // Clear the grid first.
+            grid.innerHTML = '';
             if (itemsToRender.length === 0) {
                 grid.innerHTML = `<p class="text-gray-500 col-span-full text-center">No items found.</p>`;
             } else {
@@ -301,7 +285,6 @@
                         linkAttributes += ` target="_blank" rel="noopener noreferrer"`;
                         hoverTitle = 'Visit Website';
                     }
-
                     const itemHtml = `
                         <a ${linkAttributes} title="${hoverTitle}" class="block bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
                             <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="${item.title}" class="w-full h-48 object-cover">
@@ -320,12 +303,10 @@
                 });
             }
             
-            // Step 5: Update pagination controls.
             pageIndicator.textContent = `Page ${currentPage} of ${totalPages > 0 ? totalPages : 1}`;
             prevButton.disabled = currentPage === 1;
             nextButton.disabled = currentPage === totalPages || totalPages === 0;
 
-            // NEW: After rendering, tell the observer to watch the new items.
             if (itemObserver) {
                 const itemsToObserve = document.querySelectorAll('#portfolio-grid a');
                 itemsToObserve.forEach(item => {
@@ -334,14 +315,20 @@
             }
         }
 
-        // --- EVENT LISTENERS ---
+        // --- EVENT LISTENERS (MODIFIED) ---
         prevButton.addEventListener('click', () => {
-            if (currentPage > 1) { currentPage--; renderPortfolio(); }
+            if (currentPage > 1) { 
+                currentPage--; 
+                handlePortfolioUpdate(); // Use the new function
+            }
         });
         nextButton.addEventListener('click', () => {
             const totalItems = portfolioItems.filter(item => (currentFilter === 'all' || item.category === currentFilter) && (item.title.toLowerCase().includes(searchQuery) || item.description.toLowerCase().includes(searchQuery))).length;
             const totalPages = Math.ceil(totalItems / itemsPerPage);
-            if (currentPage < totalPages) { currentPage++; renderPortfolio(); }
+            if (currentPage < totalPages) { 
+                currentPage++; 
+                handlePortfolioUpdate(); // Use the new function
+            }
         });
         filterContainer.addEventListener('click', (e) => {
             const targetButton = e.target.closest('.filter-btn');
@@ -350,18 +337,16 @@
                 targetButton.classList.add('active');
                 currentFilter = targetButton.dataset.filter;
                 currentPage = 1;
-                renderPortfolio();
+                handlePortfolioUpdate(); // Use the new function
             }
         });
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value.toLowerCase().trim();
             currentPage = 1;
-            renderPortfolio();
+            handlePortfolioUpdate(); // Use the new function
         });
 
         // --- INITIALIZATION ---
-        
-        // Mobile menu toggle logic
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
@@ -369,7 +354,6 @@
             if (event.target.tagName === 'A') mobileMenu.classList.add('hidden');
         });
 
-        // Fade-in animation for sections
         const sections = document.querySelectorAll('.fade-in-section');
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -381,10 +365,7 @@
         }, { rootMargin: '0px', threshold: 0.1 });
         sections.forEach(section => { sectionObserver.observe(section); });
 
-        // NEW: Set up the item observer on page load.
         initializeItemObserver();
-        
-        // Initial render of the portfolio.
         renderPortfolio();
     });
     </script>
