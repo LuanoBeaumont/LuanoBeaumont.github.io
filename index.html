@@ -22,11 +22,54 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* NYC Subway Colors */
+        /* NYC Subway Colors for item circles */
         .subway-red { background-color: #EE352E; }
         .subway-green { background-color: #00933C; }
         .subway-blue { background-color: #0039A6; }
-        .subway-yellow { background-color: #FCCC0A; color: #000; } /* Yellow needs black text for readability */
+        .subway-yellow { background-color: #FCCC0A; color: #000; }
+
+        /* Styles for pagination */
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* New Filter Bar Styles */
+        #filter-container .filter-btn {
+            padding: 1rem 1.25rem; /* py-4 px-5 */
+            position: relative;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            color: #4b5563; /* text-gray-600 */
+            transition: color 0.2s, background-color 0.2s;
+            border-right: 1px solid #e5e7eb; /* border-gray-200 */
+        }
+
+        #filter-container .filter-btn:last-child {
+            border-right: none;
+        }
+
+        #filter-container .filter-btn:hover {
+            background-color: #f9fafb; /* bg-gray-50 */
+            color: #000;
+        }
+
+        #filter-container .filter-btn.active {
+            background-color: #f3f4f6; /* bg-gray-100 */
+            color: #111827; /* text-gray-900 */
+            font-weight: 500;
+        }
+
+        #filter-container .filter-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; /* Sits on top of the container's bottom border */
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #0039A6; /* A nice blue color */
+        }
     </style>
 </head>
 <body class="bg-white text-black">
@@ -83,79 +126,35 @@
 
         <!-- Work Section -->
         <section id="work" class="py-16 md:py-24 border-t border-gray-100 fade-in-section">
-            <div class="text-center mb-12">
+            <div class="text-center mb-8">
                 <h2 class="text-3xl md:text-4xl font-bold">My Work</h2>
                 <p class="text-gray-600 mt-2">A selection of my recent research projects.</p>
             </div>
+
+            <!-- Filter and Search Bar -->
+            <div class="flex flex-col md:flex-row justify-between items-stretch mb-12 border-b border-gray-200">
+                <div id="filter-container" class="flex flex-col sm:flex-row flex-wrap justify-center">
+                    <button data-filter="all" class="filter-btn active">All</button>
+                    <button data-filter="Project" class="filter-btn">Projects</button>
+                    <button data-filter="Study" class="filter-btn">Studies</button>
+                    <button data-filter="Artwork" class="filter-btn">Artworks</button>
+                </div>
+                <div class="relative flex items-center p-2">
+                    <input type="text" id="search-input" placeholder="Search..." class="pl-10 pr-4 py-2 w-full md:w-64 border rounded-lg focus:ring-2 focus:ring-black focus:outline-none">
+                    <svg class="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+            </div>
             
             <!-- Grid for portfolio items -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Portfolio Item 1 -->
-                <div class="bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
-                    <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="Project 1 Screenshot" class="w-full h-48 object-cover">
-                    <div class="p-6 relative">
-                        <div class="absolute -top-5 left-6 w-10 h-10 subway-red rounded-full flex items-center justify-center text-white font-bold text-lg ring-4 ring-white">1</div>
-                        <p class="text-sm text-gray-500 mt-4">Oct 2023</p>
-                        <h3 class="text-xl font-semibold mt-1 mb-2">Predictive Modeling of Urban Growth</h3>
-                        <p class="text-gray-600 text-sm">Developed a machine learning model to forecast urban expansion patterns using satellite imagery and demographic data.</p>
-                    </div>
-                </div>
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[500px]">
+                <!-- Portfolio items will be injected here by JavaScript -->
+            </div>
 
-                <!-- Portfolio Item 2 -->
-                <div class="bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
-                    <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="Project 2 Screenshot" class="w-full h-48 object-cover">
-                    <div class="p-6 relative">
-                        <div class="absolute -top-5 left-6 w-10 h-10 subway-blue rounded-full flex items-center justify-center text-white font-bold text-lg ring-4 ring-white">2</div>
-                        <p class="text-sm text-gray-500 mt-4">Sep 2023</p>
-                        <h3 class="text-xl font-semibold mt-1 mb-2">Sentiment Analysis on Social Media</h3>
-                        <p class="text-gray-600 text-sm">Analyzed public sentiment towards climate change policies by processing over 2 million tweets using NLP techniques.</p>
-                    </div>
-                </div>
-
-                <!-- Portfolio Item 3 -->
-                <div class="bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
-                    <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="Project 3 Screenshot" class="w-full h-48 object-cover">
-                    <div class="p-6 relative">
-                        <div class="absolute -top-5 left-6 w-10 h-10 subway-green rounded-full flex items-center justify-center text-white font-bold text-lg ring-4 ring-white">3</div>
-                        <p class="text-sm text-gray-500 mt-4">Jun 2023</p>
-                        <h3 class="text-xl font-semibold mt-1 mb-2">Behavioral Economics in App Design</h3>
-                        <p class="text-gray-600 text-sm">A/B tested UI/UX changes in a mobile application to measure the impact of choice architecture on user engagement.</p>
-                    </div>
-                </div>
-
-                <!-- Portfolio Item 4 -->
-                <div class="bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
-                    <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="Project 4 Screenshot" class="w-full h-48 object-cover">
-                    <div class="p-6 relative">
-                        <div class="absolute -top-5 left-6 w-10 h-10 subway-yellow rounded-full flex items-center justify-center font-bold text-lg ring-4 ring-white">4</div>
-                        <p class="text-sm text-gray-500 mt-4">Mar 2023</p>
-                        <h3 class="text-xl font-semibold mt-1 mb-2">Network Analysis of Collaboration</h3>
-                        <p class="text-gray-600 text-sm">Mapped collaboration networks among researchers to identify key influencers and knowledge diffusion pathways.</p>
-                    </div>
-                </div>
-
-                <!-- Portfolio Item 5 -->
-                <div class="bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
-                    <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="Project 5 Screenshot" class="w-full h-48 object-cover">
-                    <div class="p-6 relative">
-                        <div class="absolute -top-5 left-6 w-10 h-10 subway-red rounded-full flex items-center justify-center text-white font-bold text-lg ring-4 ring-white">5</div>
-                        <p class="text-sm text-gray-500 mt-4">Dec 2022</p>
-                        <h3 class="text-xl font-semibold mt-1 mb-2">Ethical Frameworks for AI</h3>
-                        <p class="text-gray-600 text-sm">A qualitative study proposing a new ethical framework for the deployment of autonomous decision-making systems.</p>
-                    </div>
-                </div>
-
-                <!-- Portfolio Item 6 -->
-                <div class="bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
-                    <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="Project 6 Screenshot" class="w-full h-48 object-cover">
-                    <div class="p-6 relative">
-                        <div class="absolute -top-5 left-6 w-10 h-10 subway-blue rounded-full flex items-center justify-center text-white font-bold text-lg ring-4 ring-white">6</div>
-                        <p class="text-sm text-gray-500 mt-4">Sep 2022</p>
-                        <h3 class="text-xl font-semibold mt-1 mb-2">Data Visualization for Public Health</h3>
-                        <p class="text-gray-600 text-sm">Designed interactive dashboards to communicate complex epidemiological data to policymakers and the general public.</p>
-                    </div>
-                </div>
+            <!-- Pagination Controls -->
+            <div id="pagination-container" class="flex justify-center items-center gap-4 mt-12">
+                <button id="prev-page" class="pagination-btn bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">&larr; Previous</button>
+                <span id="page-indicator" class="text-gray-600"></span>
+                <button id="next-page" class="pagination-btn bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">Next &rarr;</button>
             </div>
         </section>
 
@@ -164,12 +163,8 @@
             <div class="max-w-3xl mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">About Me</h2>
                 <div class="text-left space-y-4 text-gray-700">
-                    <p>
-                        I am a researcher driven by a deep curiosity about how systems work—from the complex algorithms that shape our digital lives to the societal structures that influence our choices. My work is grounded in a mixed-methods approach, combining quantitative analysis with qualitative insights to tackle challenging questions.
-                    </p>
-                    <p>
-                        I hold a Master's degree in [Your Field] from [Your University] and have contributed to several peer-reviewed publications. When I'm not immersed in data or literature, I enjoy hiking, photography, and exploring new coffee shops.
-                    </p>
+                    <p>I am a researcher driven by a deep curiosity about how systems work—from the complex algorithms that shape our digital lives to the societal structures that influence our choices. My work is grounded in a mixed-methods approach, combining quantitative analysis with qualitative insights to tackle challenging questions.</p>
+                    <p>I hold a Master's degree in [Your Field] from [Your University] and have contributed to several peer-reviewed publications. When I'm not immersed in data or literature, I enjoy hiking, photography, and exploring new coffee shops.</p>
                 </div>
             </div>
         </section>
@@ -178,29 +173,16 @@
         <section id="contact" class="py-16 md:py-24 bg-gray-50 rounded-t-xl -mx-6 px-6 fade-in-section">
             <div class="max-w-2xl mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
-                <p class="text-gray-600 mb-8">
-                    I'm always open to discussing new research, collaborations, or opportunities. Feel free to reach out.
-                </p>
-                
-                <!-- Social Media Links -->
+                <p class="text-gray-600 mb-8">I'm always open to discussing new research, collaborations, or opportunities. Feel free to reach out.</p>
                 <div class="flex justify-center gap-4 mb-8">
-                    <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    </a>
-                    <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                    </a>
-                    <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                    </a>
-                     <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-                    </a>
+                    <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+                    <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                    <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                    <a href="#" class="bg-white p-3 rounded-full shadow-sm hover:shadow-md transition-shadow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
                 </div>
                 <p class="text-sm text-gray-500">woodrow.fajardo.research@email.com</p>
             </div>
         </section>
-
     </main>
 
     <!-- Footer -->
@@ -209,21 +191,116 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function () {
+        // --- DATA ---
+        const portfolioItems = [
+            { id: 1, title: 'Predictive Modeling of Urban Growth', date: 'Oct 2023', category: 'Project', color: 'subway-red', description: 'Developed a machine learning model to forecast urban expansion patterns using satellite imagery and demographic data.' },
+            { id: 2, title: 'Sentiment Analysis on Social Media', date: 'Sep 2023', category: 'Study', color: 'subway-blue', description: 'Analyzed public sentiment towards climate change policies by processing over 2 million tweets using NLP techniques.' },
+            { id: 3, title: 'Behavioral Economics in App Design', date: 'Jun 2023', category: 'Study', color: 'subway-blue', description: 'A/B tested UI/UX changes in a mobile application to measure the impact of choice architecture on user engagement.' },
+            { id: 4, title: 'Network Analysis of Collaboration', date: 'Mar 2023', category: 'Project', color: 'subway-red', description: 'Mapped collaboration networks among researchers to identify key influencers and knowledge diffusion pathways.' },
+            { id: 5, title: 'Abstract Digital Painting 1', date: 'Feb 2023', category: 'Artwork', color: 'subway-green', description: 'An exploration of color and form using generative algorithms.' },
+            { id: 6, title: 'Ethical Frameworks for AI', date: 'Dec 2022', category: 'Study', color: 'subway-blue', description: 'A qualitative study proposing a new ethical framework for the deployment of autonomous decision-making systems.' },
+            { id: 7, title: 'Data Visualization for Public Health', date: 'Sep 2022', category: 'Project', color: 'subway-red', description: 'Designed interactive dashboards to communicate complex epidemiological data to policymakers and the general public.' },
+            { id: 8, title: 'Generative Landscape', date: 'Aug 2022', category: 'Artwork', color: 'subway-green', description: 'A digital artwork created with p5.js, representing a fictional landscape.' },
+            { id: 9, title: 'A Study on Remote Work Productivity', date: 'Jul 2022', category: 'Study', color: 'subway-blue', description: 'A survey and data analysis on the effects of remote work on employee productivity and well-being.' },
+        ];
+
+        // --- STATE ---
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        // --- DOM ELEMENTS ---
+        const grid = document.getElementById('portfolio-grid');
+        const prevButton = document.getElementById('prev-page');
+        const nextButton = document.getElementById('next-page');
+        const pageIndicator = document.getElementById('page-indicator');
+        const filterContainer = document.getElementById('filter-container');
+        const searchInput = document.getElementById('search-input');
+
+        // --- FUNCTIONS ---
+        function renderPortfolio() {
+            let filteredItems = portfolioItems;
+            if (currentFilter !== 'all') {
+                filteredItems = portfolioItems.filter(item => item.category === currentFilter);
+            }
+            if (searchQuery) {
+                filteredItems = filteredItems.filter(item => 
+                    item.title.toLowerCase().includes(searchQuery) || 
+                    item.description.toLowerCase().includes(searchQuery)
+                );
+            }
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const itemsToRender = filteredItems.slice(startIndex, startIndex + itemsPerPage);
+            grid.innerHTML = '';
+            if (itemsToRender.length === 0) {
+                grid.innerHTML = `<p class="text-gray-500 col-span-full text-center">No items found.</p>`;
+            } else {
+                itemsToRender.forEach(item => {
+                    const itemHtml = `
+                        <div class="bg-white rounded-xl overflow-hidden group shadow-md hover:shadow-xl transition-shadow duration-300 border">
+                            <img src="https://placehold.co/600x400/EEE/333?text=Project+Image" alt="${item.title}" class="w-full h-48 object-cover">
+                            <div class="p-6 relative">
+                                <div class="absolute -top-5 left-6 w-10 h-10 ${item.color} rounded-full flex items-center justify-center text-white font-bold text-lg ring-4 ring-white">${item.id}</div>
+                                <p class="text-sm text-gray-500 mt-4">${item.date}</p>
+                                <h3 class="text-xl font-semibold mt-1 mb-2">${item.title}</h3>
+                                <p class="text-gray-600 text-sm">${item.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += itemHtml;
+                });
+            }
+            pageIndicator.textContent = `Page ${currentPage} of ${totalPages > 0 ? totalPages : 1}`;
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages || totalPages === 0;
+        }
+
+        // --- EVENT LISTENERS ---
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPortfolio();
+            }
+        });
+        nextButton.addEventListener('click', () => {
+            const totalItems = portfolioItems.filter(item => (currentFilter === 'all' || item.category === currentFilter) && (item.title.toLowerCase().includes(searchQuery) || item.description.toLowerCase().includes(searchQuery))).length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPortfolio();
+            }
+        });
+        filterContainer.addEventListener('click', (e) => {
+            const targetButton = e.target.closest('.filter-btn');
+            if (targetButton) {
+                filterContainer.querySelector('.active').classList.remove('active');
+                targetButton.classList.add('active');
+                currentFilter = targetButton.dataset.filter;
+                currentPage = 1;
+                renderPortfolio();
+            }
+        });
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            currentPage = 1;
+            renderPortfolio();
+        });
+
+        // --- INITIALIZATION ---
+        renderPortfolio();
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-
-        // Close mobile menu when a link is clicked
         mobileMenu.addEventListener('click', (event) => {
             if (event.target.tagName === 'A') {
                 mobileMenu.classList.add('hidden');
             }
         });
-
-        // Intersection Observer for fade-in animations
         const sections = document.querySelectorAll('.fade-in-section');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -232,15 +309,9 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, {
-            rootMargin: '0px',
-            threshold: 0.1
-        });
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        }, { rootMargin: '0px', threshold: 0.1 });
+        sections.forEach(section => { observer.observe(section); });
+    });
     </script>
-
 </body>
 </html>
